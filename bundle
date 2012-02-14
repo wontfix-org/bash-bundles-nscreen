@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+function _nscreen_list() {
+    while read name dummy ; do
+		# skip garbage 
+		[[ $name != *.* ]] && continue
+		# script "<pid>."
+		name=${name#*.}
+		# unnamed screens will have a dot left, skip them, too
+		[[ $name == *.* ]] && continue
+        echo $name
+    done < <(screen -ls)
+}
+
+
+function _complete_nscreen() {
+	local cur prev opts
+	COMPREPLY=()
+	cur="${COMP_WORDS[COMP_CWORD]}"
+	prev="${COMP_WORDS[COMP_CWORD-1]}"
+	opts=$(_nscreen_list)
+	COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+	return 0
+}
+
+complete -F _complete_nscreen nscreen

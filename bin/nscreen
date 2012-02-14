@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+name=${1:?need a screen session name}
+
+if screen -ls | grep -Pq "\d+\.$name\s+\("  ; then
+	exec screen -dr $name
+else
+	if [ -e $HOME/.screenrc-$name ] ; then
+		exec screen -S $name -c $HOME/.screenrc-$name
+	else
+		exec screen -S $name
+	fi
+fi
+
