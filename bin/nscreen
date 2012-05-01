@@ -3,7 +3,7 @@
 name=${1:?need a screen session name}
 
 if screen -ls | grep -Pq "\d+\.$name\s+\("  ; then
-	exec screen -dr $name
+    exec screen -dr $name
 else
 	if [ -e $HOME/.screenrc-$name ] ; then
 		exec screen -S $name -c $HOME/.screenrc-$name
