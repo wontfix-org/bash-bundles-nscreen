@@ -1,0 +1,36 @@
+startup_message off
+
+# UTF-8 By Default
+defutf8 on
+
+# 256 Color Support
+terminfo xterm Co=256
+termcap  xterm AF=\E[38;5;%dm
+terminfo xterm AF=\E[38;5;%p1%dm
+termcap  xterm AB=\E[48;5;%dm
+terminfo xterm AB=\E[48;5;%p1%dm
+termcapinfo xterm ti@:te@
+
+# more scrollback *rarrrr*
+defscrollback 100000
+
+altscreen on
+hardstatus alwaysignore
+
+caption always
+caption string "%{.b.}% %S - %-w %{.B.}[%h]%{-} %+w"
+
+
+# for alt right and left arrows
+bindkey ^[[1;3D prev
+bindkey ^[[1;3C next
+
+# for alt right and left arrows
+bindkey ^[[1;3A focus up
+bindkey ^[[1;3B focus down
+
+# for shit up/down resizing
+bindkey ^[[1;2A resize +1
+bindkey ^[[1;2B resize -1
+bindkey ^[[1;2C resize =
+
