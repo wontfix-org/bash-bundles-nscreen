@@ -6,14 +6,7 @@ if screen -ls | grep -Pq "\d+\.$name\s+\("  ; then
     exec screen -dr $name
 else
     if [ -e $HOME/.screenrc-$name ] ; then
-        config=$(cat $HOME/.screenrc $HOME/.screenrc-$name)
-        checksum=$(echo "$config" | md5sum)
-        checksum=${checksum% *}
-        config_file=$HOME/.nscreen.$checksum
-        if ! [ -f $HOME/.nscreen.$checksum ] ; then
-            echo "$config" > $config_file
-        fi
-        exec screen -S $name -c $config_file
+        exec screen -S $name -c $HOME/.screenrc-$name
     else
         exec screen -S $name
     fi
